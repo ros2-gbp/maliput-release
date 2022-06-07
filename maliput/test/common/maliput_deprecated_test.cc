@@ -1,0 +1,72 @@
+// BSD 3-Clause License
+//
+// Copyright (c) 2022, Woven Planet. All rights reserved.
+// Copyright (c) 2019-2022, Toyota Research Institute. All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// * Redistributions of source code must retain the above copyright notice, this
+//   list of conditions and the following disclaimer.
+//
+// * Redistributions in binary form must reproduce the above copyright notice,
+//   this list of conditions and the following disclaimer in the documentation
+//   and/or other materials provided with the distribution.
+//
+// * Neither the name of the copyright holder nor the names of its
+//   contributors may be used to endorse or promote products derived from
+//   this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#include "maliput/common/maliput_deprecated.h"
+
+#include <gtest/gtest.h>
+
+#include "maliput/common/maliput_unused.h"
+
+// This test verifies that the maliput build still succeeds if a deprecated class
+// or function is in use.
+
+namespace maliput {
+namespace common {
+namespace {
+
+class MALIPUT_DEPRECATED("2027-05-27", "Use MyNewClass instead.") MyOldClass {};
+
+class MyNewClass {};
+
+MALIPUT_DEPRECATED("2038-01-19", "Don't use this function; use NewMethod() instead.")
+int OldMethod(int arg) { return arg; }
+
+int NewMethod(int arg) { return arg; }
+
+GTEST_TEST(MaliputDeprecatedTest, ClassTest) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+  const MyOldClass deprecated;
+#pragma GCC diagnostic pop
+  const MyNewClass not_deprecated;
+  unused(deprecated, not_deprecated);
+}
+
+GTEST_TEST(MaliputDeprecatedTest, FunctionTest) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+  const int deprecated = OldMethod(1);
+#pragma GCC diagnostic pop
+  const int not_deprecated = NewMethod(1);
+  unused(deprecated, not_deprecated);
+}
+
+}  // namespace
+}  // namespace common
+}  // namespace maliput
