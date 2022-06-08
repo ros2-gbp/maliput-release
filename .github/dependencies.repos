@@ -1,0 +1,5 @@
+repositories:
+  ament_cmake_doxygen:
+    type: git
+    url: https://github.com/ToyotaResearchInstitute/ament_cmake_doxygen
+    version: main
