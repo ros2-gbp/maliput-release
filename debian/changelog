@@ -1,0 +1,52 @@
+ros-foxy-maliput (1.0.6-1focal) focal; urgency=high
+
+  * Implements KDTree::RangeSearch method. (#520 <https://github.com/maliput/maliput/issues/520>)
+  * Adds AxisAlignedBox. (#519 <https://github.com/maliput/maliput/issues/519>)
+  * Brings BoundingRegion's related stuff from maliput_object. (#518 <https://github.com/maliput/maliput/issues/518>)
+  * Adds KDTree to maliput::math. (#515 <https://github.com/maliput/maliput/issues/515>)
+  * Contributors: Franco Cipollone
+
+ -- Daniel Stonier <daniel.stonier@tri.global>  Tue, 16 Aug 2022 03:00:00 -0000
+
+ros-foxy-maliput (1.0.5-1focal) focal; urgency=high
+
+  * Provides convenient method for loading a RN via plugins. (#512 <https://github.com/maliput/maliput/issues/512>)
+  * Adds triage workflow. (#513 <https://github.com/maliput/maliput/issues/513>)
+  * Improves README. (#511 <https://github.com/maliput/maliput/issues/511>)
+  * Update README.md with new github.com/maliput URLs (#510 <https://github.com/maliput/maliput/issues/510>)
+    Needed due to the transition to the "maliput" organization.
+    Also refer developers to new documentation website.
+  * Contributors: Chien-Liang Fok, Franco Cipollone
+
+ -- Daniel Stonier <daniel.stonier@tri.global>  Tue, 26 Jul 2022 03:00:00 -0000
+
+ros-foxy-maliput (1.0.4-1focal) focal; urgency=high
+
+  * Fixes include folder installation. (#508 <https://github.com/maliput/maliput/issues/508>)
+  * Uses ros-action-ci in build.yaml workflow. (#505 <https://github.com/maliput/maliput/issues/505>)
+  * Contributors: Franco Cipollone
+
+ -- Daniel Stonier <daniel.stonier@tri.global>  Mon, 13 Jun 2022 03:00:00 -0000
+
+ros-foxy-maliput (1.0.3-1focal) focal; urgency=high
+
+  * moving maliput to the root (#506 <https://github.com/maliput/maliput/issues/506>)
+  * Contributors: Tully Foote
+
+ -- Daniel Stonier <daniel.stonier@tri.global>  Wed, 08 Jun 2022 03:00:00 -0000
+
+ros-foxy-maliput (1.0.2-1focal) focal; urgency=high
+
+  * Preparing for binary release
+
+ -- Daniel Stonier <daniel.stonier@tri.global>  Mon, 06 Jun 2022 03:00:00 -0000
+
+ros-foxy-maliput (1.0.1-1focal) focal; urgency=high
+
+  * Preparing for binary release1.0.0 (2021-0X-XX)
+  --------------------
+  * First official release
+
+ -- Daniel Stonier <daniel.stonier@tri.global>  Thu, 02 Jun 2022 03:00:00 -0000
+
+
