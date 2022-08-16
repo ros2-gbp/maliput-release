@@ -3,11 +3,15 @@
 ##############################################################################
 
 set(MATH_SOURCES
+  axis_aligned_box.cc
+  bounding_box.cc
   matrix.cc
   quaternion.cc
+  overlapping_type.cc
   roll_pitch_yaw.cc
   saturate.cc
-  vector.cc)
+  vector.cc
+)
 
 add_library(math ${MATH_SOURCES})
 
