@@ -194,6 +194,52 @@ namespace test {
                                        << ", tolerance = " << tolerance;
 }
 
+::testing::AssertionResult IsLanePositionResultClose(const LanePositionResult& lpr_a, const LanePositionResult& lpr_b,
+                                                     double tolerance) {
+  ::testing::AssertionResult lane_position_result =
+      IsLanePositionClose(lpr_a.lane_position, lpr_b.lane_position, tolerance);
+  if (!lane_position_result) return lane_position_result;
+
+  ::testing::AssertionResult nearest_position_result =
+      IsInertialPositionClose(lpr_a.nearest_position, lpr_b.nearest_position, tolerance);
+  if (!nearest_position_result) return nearest_position_result;
+
+  const double delta = std::abs(lpr_a.distance - lpr_b.distance);
+  if (delta > tolerance) {
+    return ::testing::AssertionFailure() << "LanePositionResult are different at distance. lpr_a.distance: "
+                                         << lpr_a.distance << " vs. lpr_b.distance: " << lpr_b.distance
+                                         << ", diff = " << delta << ", tolerance = " << tolerance << "\n";
+  }
+  return ::testing::AssertionSuccess();
+}
+
+testing::AssertionResult IsRoadPositionResultClose(const maliput::api::RoadPositionResult& rpr_a,
+                                                   const maliput::api::RoadPositionResult& rpr_b, double tolerance) {
+  if (rpr_a.road_position.lane != rpr_b.road_position.lane) {
+    return testing::AssertionFailure()
+           << "RoadPositionResult are different at road_position.lane: rpr_a.road_position.lane: "
+           << rpr_a.road_position.lane << " vs. rpr_b.road_position.lane: " << rpr_b.road_position.lane;
+  }
+  return IsLanePositionResultClose({rpr_a.road_position.pos, rpr_a.nearest_position, rpr_a.distance},
+                                   {rpr_b.road_position.pos, rpr_b.nearest_position, rpr_b.distance}, tolerance);
+}
+
+::testing::AssertionResult IsLaneEndEqual(const LaneEnd& lane_end1, const LaneEnd& lane_end2) {
+  auto which_to_string = [](const LaneEnd::Which end) {
+    return end == LaneEnd::Which::kStart ? std::string("kStart") : std::string("kFinish");
+  };
+  if (lane_end1.lane != lane_end2.lane) {
+    return ::testing::AssertionFailure() << "lane_end1.lane is different from lane_end2.lane. lane_end1.lane: "
+                                         << lane_end1.lane << " vs. lane_end2.lane: " << lane_end2.lane << "\n";
+  }
+  if (lane_end1.end != lane_end2.end) {
+    return ::testing::AssertionFailure() << "lane_end1.end is different from lane_end2.end. lane_end1.end: "
+                                         << which_to_string(lane_end1.end)
+                                         << " vs. lane_end2.end: " << which_to_string(lane_end2.end) << "\n";
+  }
+  return ::testing::AssertionSuccess();
+}
+
 }  // namespace test
 }  // namespace api
 }  // namespace maliput
